@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Django App</title>
+    {% load static %}
+    {% load crispy_forms_tags %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 </head>
 <body>
 <section class="navigation-section">
     <div class="navigation-section-container">
-        <nav class="navigation d-flex justify-content-center">
-            <a href=""><button class="btn btn-info">Home</button></a>
-            <a href=""><button class="btn btn-info">Add Products</button></a>
-            <a href=""><button class="btn btn-info">View Products</button></a>
-            <a href=""><button class="btn btn-info">Register</button></a>
-            <a href=""><button class="btn btn-info">Login</button></a>
-            <a href=""><button class="btn btn-info">Logout</button></a>
+        <nav class="navigation d-flex justify-content-center mb-2 pt-2">
+            <a href="{% url 'home' %}"><button class="btn btn-info mr-2">Home</button></a>
+            <a href=""><button class="btn btn-info mr-2">Add Products</button></a>
+            <a href=""><button class="btn btn-info mr-2">View Products</button></a>
+            <a href="{% url 'register' %}"><button class="btn btn-info mr-2">Register</button></a>
+            <a href="{% url 'login' %}"><button class="btn btn-info mr-2">Login</button></a>
+            <a href="{% url 'logout' %}"><button class="btn btn-info mr-2">Logout</button></a>
         </nav>
     </div>
 </section>
