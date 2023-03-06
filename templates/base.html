@@ -12,8 +12,10 @@
     <div class="navigation-section-container">
         <nav class="navigation d-flex justify-content-center mb-2 pt-2">
             <a href="{% url 'home' %}"><button class="btn btn-info mr-2">Home</button></a>
-            <a href=""><button class="btn btn-info mr-2">Add Products</button></a>
-            <a href=""><button class="btn btn-info mr-2">View Products</button></a>
+            <a href="{% url 'add-product' %}"><button class="btn btn-info mr-2">Add Products</button></a>
+            <a href="{% url 'products' %}"><button class="btn btn-info mr-2">View Products</button></a>
+            <a href="{% url 'add-supplier' %}"><button class="btn btn-info mr-2">Add supplier</button></a>
+            <a href="{% url 'suppliers' %}"><button class="btn btn-info mr-2">View suppliers</button></a>
             <a href="{% url 'register' %}"><button class="btn btn-info mr-2">Register</button></a>
             <a href="{% url 'login' %}"><button class="btn btn-info mr-2">Login</button></a>
             <a href="{% url 'logout' %}"><button class="btn btn-info mr-2">Logout</button></a>

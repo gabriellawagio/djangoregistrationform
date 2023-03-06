@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Delete</th>
+                <th>Update</th>
+            </tr>
+            {% for supplier in suppliers %}
+            <tr>
+                <td>{{ supplier.supp_name }}</td>
+                <td>{{ supplier.supp_email }}</td>
+                <td>{{ supplier.supp_phonenumber }}</td>
+                <td><a href="">Delete</a></td>
+                <td><a href="">Update</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
