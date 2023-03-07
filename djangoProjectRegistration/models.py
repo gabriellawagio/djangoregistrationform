@@ -15,4 +15,7 @@ def __str__(self):
 class Supplier(models.Model):
     supp_name = models.CharField(max_length=30, blank=False, null=False)
     supp_email = models.EmailField(max_length=30, blank=False, null=False)
-    supp_phonenumber= models.IntegerField(blank=False, null=False)
+    supp_phonenumber = models.IntegerField(blank=False, null=False)
+
+def __str__(self):
+    return self.supp_name

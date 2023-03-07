@@ -70,3 +70,37 @@ def view_suppliers(request):
     # select all the suppliers to be displayed
     suppliers = Supplier.objects.all()
     return render(request, 'suppliers.html', {'suppliers': suppliers})
+
+
+@login_required
+def delete_product(request, id):
+    # Fetch the product to be deleted
+    product = Product.objects.get(id=id)
+    # Delete the product
+    product.delete()
+    # Redirect back to products page with a success message
+    messages.success(request, 'Product deleted successfully')
+    return redirect('products')
+
+
+@login_required
+def update_product(request, id):
+    # Fetch the products to be updated
+    product = Product.objects.get(id=id)
+    # Check if the form submitted has a method post
+    if request.method == "POST":
+        # Receive data form the form
+        updated_name = request.POST.get('jina')
+        updated_quantity = request.POST.get('kiasi')
+        updated_price = request.POST.get('bei')
+
+        # Update the product with he received updated data
+        product.prod_name = updated_name
+        product.prod_quantity = updated_quantity
+        product.prod_price = updated_price
+
+        # Return the data back to the database and redirect back to products page with a success message
+        product.save()
+        messages.success(request, 'Product updated successfully')
+        return redirect('products')
+    return render(request, 'update-product.html', {'product': product})
