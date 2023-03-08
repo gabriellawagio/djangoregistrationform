@@ -30,4 +30,5 @@ urlpatterns = [
     path('suppliers/', general_views.view_suppliers, name='suppliers'),
     path('delete-product/<id>', general_views.delete_product, name='delete-product'),
     path('update-product/<id>', general_views.update_product, name='update-product'),
+    path('payment/<id>', general_views.payment, name='payment'),
 ]

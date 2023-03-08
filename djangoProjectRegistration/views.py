@@ -104,3 +104,9 @@ def update_product(request, id):
         messages.success(request, 'Product updated successfully')
         return redirect('products')
     return render(request, 'update-product.html', {'product': product})
+
+@login_required
+def payment (request, id):
+    # Select the product to be paid
+    product = Product.objects.get(id=id)
+    return  render(request, 'payment.html', {'product':product})
