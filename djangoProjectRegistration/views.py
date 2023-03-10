@@ -1,3 +1,11 @@
+from __future__ import unicode_literals
+from django_daraja.mpesa import utils
+from django.http import HttpResponse, JsonResponse
+from django.views import View
+from django_daraja.mpesa.core import MpesaClient
+from decouple import config
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegistrationForm
@@ -94,7 +102,7 @@ def update_product(request, id):
         updated_quantity = request.POST.get('kiasi')
         updated_price = request.POST.get('bei')
 
-        # Update the product with he received updated data
+        # Update the product with the received updated data
         product.prod_name = updated_name
         product.prod_quantity = updated_quantity
         product.prod_price = updated_price
@@ -105,8 +113,31 @@ def update_product(request, id):
         return redirect('products')
     return render(request, 'update-product.html', {'product': product})
 
+
+# Instantiate the MpesaCliennt
+cl = MpesaClient()
+# Set up callbacks
+stk_callback_url = "https://api.darajambili.com/express-payment"
+b2c_callback_url = "https://api.darajambili.com/b2c/result"
+
+
+# Generate the transaction auth_token
+def auth_success(request):
+    token = cl.access_token()
+    return JsonResponse(token, safe=False)
+
+
 @login_required
-def payment (request, id):
+def payment(request, id):
     # Select the product to be paid
     product = Product.objects.get(id=id)
-    return  render(request, 'payment.html', {'product':product})
+    if request.method == "POST":
+        phone_number = request.POST.get('nambari')
+        amount = request.POST.get('bei')
+        # Convert the amount to be an integer
+        amount = int(amount)
+        account_ref = 'GABBAE'
+        transaction_desc = 'Paying for a product'
+        transaction = cl.stk_push(phone_number, amount, account_ref, transaction_desc, stk_callback_url)
+        return JsonResponse(transaction.response_description, safe=False)
+    return render(request, 'payment.html', {'product': product})
